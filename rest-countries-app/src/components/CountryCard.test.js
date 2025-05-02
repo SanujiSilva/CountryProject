@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import CountryCard from './CountryCard';
+import { BrowserRouter } from 'react-router-dom';  // Import BrowserRouter to fix routing issues
+import CountryCard from './CountryCard';  // Import CountryCard once
 
 test('displays country name', () => {
   const mockCountry = {
@@ -11,6 +12,13 @@ test('displays country name', () => {
     flags: { png: 'https://flagcdn.com/w320/fr.png' },
   };
 
-  render(<CountryCard country={mockCountry} />);
+  // Wrap the CountryCard component in BrowserRouter for routing context
+  render(
+    <BrowserRouter>
+      <CountryCard country={mockCountry} />
+    </BrowserRouter>
+  );
+
+  // Assert that the country name is rendered correctly
   expect(screen.getByText(/France/i)).toBeInTheDocument();
 });

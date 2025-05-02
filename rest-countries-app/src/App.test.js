@@ -2,11 +2,8 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 
 test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  render(<App />);  // Do not wrap <App /> with <BrowserRouter> if it's already inside App
+  
+  const learnReactLink = screen.getByText(/learn react/i);  // Assuming you have a "learn react" link in your App
+  expect(learnReactLink).toBeInTheDocument();
 });
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  BrowserRouter: ({ children }) => <div>{children}</div>,
-}));
